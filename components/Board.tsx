@@ -14,21 +14,15 @@ interface BoardProps {
 const Board: React.FC<BoardProps> = ({ layout }) => {
     // Calculate hex size based on screen width and board type
     const isStandard = layout.length <= 19;
-    const hexSize = isStandard ? SCREEN_WIDTH / 9 : SCREEN_WIDTH / 12;
+    const hexSize = isStandard ? SCREEN_WIDTH / 9.5 : SCREEN_WIDTH / 12;
 
-    // Convert axial/cube coordinates to pixel coordinates
+    // Pointy-topped hex conversion
     const cubeToPixel = (x: number, y: number, z: number) => {
+        const q = x;
+        const r = z;
         const size = hexSize;
-        const hexWidth = size * 2;
-        const hexHeight = size * Math.sqrt(3);
-
-        // Offset coordinates
-        const col = x + (z - (z % 2)) / 2;
-        const row = z;
-
-        const pixelX = col * hexWidth * 0.75;
-        const pixelY = row * hexHeight * 0.5;
-
+        const pixelX = size * Math.sqrt(3) * (q + r / 2);
+        const pixelY = size * 3 / 2 * r;
         return { pixelX, pixelY };
     };
 
@@ -44,21 +38,28 @@ const Board: React.FC<BoardProps> = ({ layout }) => {
         return { ...hex, pixelX, pixelY };
     });
 
-    // Calculate board dimensions and center offset
-    const boardWidth = maxX - minX + hexSize * 2;
-    const boardHeight = maxY - minY + hexSize * Math.sqrt(3);
-    const offsetX = (SCREEN_WIDTH - boardWidth) / 2 - minX;
-    const offsetY = hexSize; // Top padding
+    // Calculate board dimensions
+    const boardWidth = maxX - minX + hexSize * Math.sqrt(3);
+    const boardHeight = maxY - minY + hexSize * 2;
+
+    // Improved centering calculations
+    const offsetX = (SCREEN_WIDTH - boardWidth) / 2 - minX + (isStandard ? hexSize * 0.5 : 0);
+    const offsetY = (SCREEN_WIDTH * 0.9 - boardHeight) / 2 - minY;
 
     return (
-        <View style={[styles.board, { height: boardHeight + hexSize * 2 }]}>
+        <View style={[styles.board, {
+            width: boardWidth,
+            height: boardHeight,
+
+            marginTop: -hexSize * 0.5,
+            marginLeft: -hexSize * 1.4
+        }]}>
             {positionedHexes.map((hex) => (
                 <View
                     key={hex.id}
                     style={[
                         styles.hexContainer,
                         {
-                            position: 'absolute',
                             left: hex.pixelX + offsetX,
                             top: hex.pixelY + offsetY,
                             zIndex: 1000 - Math.abs(hex.coords[0]) - Math.abs(hex.coords[1]) - Math.abs(hex.coords[2])

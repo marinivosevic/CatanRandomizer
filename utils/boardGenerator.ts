@@ -49,54 +49,73 @@ const EXTENDED_RESOURCES: Resource[] = [
 ];
 // Standard board layout (rings)
 const STANDARD_LAYOUT: [number, number, number][] = [
-  // Center ring (1 hex)
   [0, 0, 0],
-
-  // Middle ring (6 hexes)
-  [0.85, -1, 0],
-  [0.4, 0, -1.3],
-  [-0.4, 1, -1.3],
-  [-0.85, 1, 0],
-  [-0.4, 0, 1.3],
-  [0.4, -1, 1.3],
-
-  // Outer ring (12 hexes)
-  [1.7, -2, 0],
-  [1.3, -1, -1.3],
-  [1.85, 0, -2.5],
-  [1, 1, -2.5],
-  [0.15, 2, -2.5],
-  [-1.3, 2, -1.3],
-  [-1.7, 2, 0],
-  [-1.25, 1, 1.3],
-  [-1.8, 0, 2.5],
-  [-1, -1, 2.5],
-  [-0.15, -2, 2.5],
-  [1.3, -2, 1.3],
+  [1, -1, 0],
+  [-1, 1, 0],
+  [0, -1, 1],
+  [0, 1, -1],
+  [1, 0, -1],
+  [-1, 0, 1],
+  [2, -1, -1],
+  [-2, 1, 1],
+  [1, 1, -2],
+  [-1, -1, 2],
+  [2, 0, -2],
+  [-2, 0, 2],
+  [0, -2, 2],
+  [0, 2, -2],
+  [1, -2, 1],
+  [-1, 2, -1],
+  [-2, 2, 0],
+  [2, -2, 0],
 ];
 
 // Extended board layout (additional rings)
+// Extended 7-row layout (cube coordinates for 3–4–5–6–5–4–3 shape)
 const EXTENDED_LAYOUT: [number, number, number][] = [
-  ...STANDARD_LAYOUT,
-  // Add 2 tiles to the bottom 4-tile row (now 6)
-  [-1.5, -1.5, 2.0], // 20 - Between [-1,-1,2.5] and [-0.15,-2,2.5]
-  [2.1, 2, 1.35], // 21 - Between [-0.15,-2,2.5] and [1.3,-2,1.3]
+  // Row 0 (top) - 3 hexes
+  [-2, 2, 4],
+  [-1, 2, 4],
+  [0, 2, 4],
 
-  // Add remaining 9 tiles to complete 5-4-3 bottom
-  // New bottom row (5 tiles)
-  [-2.15, 0.5, 1.3], // 22 - Left extension
-  [-2.7, -0.5, 2.6], // 23
-  [0.7, -0.5, 2.5], // 24 - Right extension
-  [-3.2, 1, 4], // 25
+  // Row 1 - 4 hexes
+  [-2, 1, 1],
+  [-1, 1, 0],
+  [0, 1, -1],
+  [1, 1, -2],
 
-  // New bottom-middle (4 tiles)
-  [-1.5, -2.5, 2.0], // 26
-  [-0.5, -3.0, 5.5], // 27
-  [0.7, -1.0, 4.5], // 28
-  [3.5, -2.5, 5.0], // 291
+  // Row 2 - 5 hexes
+  [-2, 0, 2],
+  [-1, 0, 1],
+  [0, 0, 0],
+  [1, 0, -1],
+  [2, 0, -2],
 
-  // New bottom-right (3 tiles - optional, adjust if needed)
-  [2.0, 0.0, 5.0], // 30
+  // Row 3 - 6 hexes (middle row)
+  [-2, -1, 3],
+  [-1, -1, 2],
+  [0, -1, 1],
+  [1, -1, 0],
+  [2, -1, -1],
+  [3, -1, -2],
+
+  // Row 4 - 5 hexes
+  [-1, -2, 3],
+  [0, -2, 2],
+  [1, -2, 1],
+  [2, -2, 0],
+  [3, -2, -1],
+
+  // Row 5 - 4 hexes
+  [0, -3, 3],
+  [1, -3, 2],
+  [2, -3, 1],
+  [3, -3, 0],
+
+  // Row 6 - 3 hexes
+  [1, -4, 3],
+  [2, -4, 2],
+  [3, -4, 1],
 ];
 
 export const generateStandardBoard = (): Hex[] => {

@@ -3,9 +3,13 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   board: {
-    width: "100%",
     position: "relative",
-    marginVertical: 20,
+  },
+  boardContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
   },
   hexContainer: {
     position: "absolute",

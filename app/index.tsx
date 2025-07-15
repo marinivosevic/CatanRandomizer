@@ -1,11 +1,11 @@
 // App.tsx
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import AppHeader from '../../components/AppHeader';
-import Board from '../../components/Board';
-import Controls from '../../components/Controls';
-import { BoardType, Hex } from '../../types/types';
-import { generateExtendedBoard, generateStandardBoard } from '../../utils/boardGenerator';
+import AppHeader from '../components/AppHeader';
+import Board from '../components/Board';
+import Controls from '../components/Controls';
+import { BoardType, Hex } from '../types/types';
+import { generateExtendedBoard, generateStandardBoard } from '../utils/boardGenerator';
 
 export default function App() {
   const [boardType, setBoardType] = useState<BoardType>('standard');

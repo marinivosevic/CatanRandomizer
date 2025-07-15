@@ -10,7 +10,7 @@ interface HexProps {
     size?: number;
 }
 
-const Hex: React.FC<HexProps> = ({ resource, number, size = 60 }) => {
+const Hex: React.FC<HexProps> = ({ resource, number, size = 10 }) => {
     const resourceImages = {
         brick: require('../assets/images/hill.png'),
         grain: require('../assets/images/field.png'),
@@ -19,10 +19,10 @@ const Hex: React.FC<HexProps> = ({ resource, number, size = 60 }) => {
         wool: require('../assets/images/pasture.png'),
         desert: require('../assets/images/desert.png'),
     };
-
+    console.log(size)
     const hexStyle: StyleProp<ViewStyle> = {
-        width: size * 2,
-        height: size * Math.sqrt(3),
+        width: size * Math.sqrt(3),  // Wider than tall
+        height: size * 2,            // Height is less than width
         justifyContent: 'center',
         alignItems: 'center',
     };
@@ -31,7 +31,10 @@ const Hex: React.FC<HexProps> = ({ resource, number, size = 60 }) => {
         <View style={[styles.hexagon, hexStyle]}>
             <Image
                 source={resourceImages[resource]}
-                style={{ width: size * 1.5, height: size * 1.5 }}
+                style={{
+                    width: size * Math.sqrt(3),
+                    height: size * 2
+                }}
                 resizeMode="contain"
             />
             {number && (
